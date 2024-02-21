@@ -23,8 +23,7 @@ objs_lecture_synchronization := $(patsubst src/from-lecture/synchronization/%.cp
 # Linker, version, and misc additions
 CC=cc
 VERSION=-std=c++11
-RTL=-lrt
-LPTHREAD=-lpthread
+OPENMP=-fopenmp
 
 # All call
 all: directories program
@@ -67,12 +66,12 @@ src_comp: src/*.cpp
 
 # Program binary executable compilation
 program: src_comp
-	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_NUM_THREADS_DEF)/*.o -o $(BIN_LECT_DIR)/ntd $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
+	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(OPENMP)
+	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(OPENMP)
+	g++ $(OBJ_DIR_LECT_NUM_THREADS_DEF)/*.o -o $(BIN_LECT_DIR)/ntd $(OPENMP)
+	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(OPENMP)
+	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(OPENMP)
 
 # Clean does a recursive removal of the generated bin and obj directories.
 .PHONY: clean
