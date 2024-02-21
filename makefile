@@ -34,7 +34,7 @@ directories:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR_LECT_HELLO)
 	@mkdir -p $(OBJ_DIR_LECT_NUM_INTEG)
-	@mkdir -p $(OBJ_DIR_LECT_NUM_THREADS)
+	@mkdir -p $(OBJ_DIR_LECT_NUM_THREADS_DEF)
 	@mkdir -p $(OBJ_DIR_LECT_PI)
 	@mkdir -p $(OBJ_DIR_LECT_SYNCHRONIZATION)
 	@mkdir -p $(BIN_DIR)
@@ -49,7 +49,7 @@ from-lect-hello-%.o: src/from-lecture/hello/%.cpp
 from-lect-numinteg-%.o: src/from-lecture/num-integ/%.cpp
 	$(CC) $(VERSION) -c src/from-lecture/num-integ/$*.cpp -o $(OBJ_DIR_LECT_NUM_INTEG)/$*.o
 from-lect-numthreadsdefined-%.o: src/from-lecture/num-threads-defined/%.cpp
-	$(CC) $(VERSION) -c src/from-lecture/num-threads-defined/$*.cpp -o $(OBJ_DIR_LECT_NUM_THREADS)/$*.o
+	$(CC) $(VERSION) -c src/from-lecture/num-threads-defined/$*.cpp -o $(OBJ_DIR_LECT_NUM_THREADS_DEF)/$*.o
 from-lect-piprogram-%.o: src/from-lecture/pi-program/%.cpp
 	$(CC) $(VERSION) -c src/from-lecture/pi-program/$*.cpp -o $(OBJ_DIR_LECT_PI)/$*.o
 from-lect-synchronization-%.o: src/from-lecture/synchronization/%.cpp
@@ -70,7 +70,7 @@ program: src_comp
 	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(RTL) $(LPTHREAD)
 	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(RTL) $(LPTHREAD)
 	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT_NUM_THREADS)/*.o -o $(BIN_LECT_DIR)/ntd $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_NUM_THREADS_DEF)/*.o -o $(BIN_LECT_DIR)/ntd $(RTL) $(LPTHREAD)
 	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(RTL) $(LPTHREAD)
 	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(RTL) $(LPTHREAD)
 
