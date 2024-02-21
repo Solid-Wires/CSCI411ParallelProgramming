@@ -1,4 +1,4 @@
-#include "../inc/Common.h"
+#include "../../inc/Common.h"
 static long num_steps = 100000;
 double step;
 #define NUM_THREADS 2
