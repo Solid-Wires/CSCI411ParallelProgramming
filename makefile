@@ -3,11 +3,11 @@ BIN=Parallel
 
 # Directories
 OBJ_DIR=obj
-OBJ_DIR_LECT_HELLO=obj/from-lecture/hello
-OBJ_DIR_LECT_NUM_INTEG=obj/from-lecture/num-integ
-OBJ_DIR_LECT_NUM_THREADS-DEF=obj/from-lecture/num-threads-defined
-OBJ_DIR_LECT_PI-PROGRAM=obj/from-lecture/pi-program
-OBJ_DIR_LECT_SYNCHRONIZATION=obj/from-lecture/synchronization
+OBJ_DIR_LECT_HELLO=$(OBJ_DIR)/from-lecture/hello
+OBJ_DIR_LECT_NUM_INTEG=$(OBJ_DIR)/from-lecture/num-integ
+OBJ_DIR_LECT_NUM_THREADS_DEF=$(OBJ_DIR)/from-lecture/num-threads-defined
+OBJ_DIR_LECT_PI-PROGRAM=$(OBJ_DIR)/from-lecture/pi-program
+OBJ_DIR_LECT_SYNCHRONIZATION=$(OBJ_DIR)/from-lecture/synchronization
 BIN_DIR=bin
 BIN_LECT_DIR=$(BIN_DIR)/lecture
 
