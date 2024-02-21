@@ -36,8 +36,8 @@ from-lect-%.o: src/from-lecture/%.cpp
 
 # Primary source compilation
 src_comp: src/*.cpp
-	make -s src=$(objs)
-	make -s from-lect=$(objs_lecture)
+	make -s src-$(objs)
+	make -s from-lect-$(objs_lecture)
 
 # Program binary executable compilation
 program: src_comp
