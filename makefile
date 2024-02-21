@@ -28,16 +28,16 @@ directories:
 	@mkdir -p $(BIN_DIR)
 
 # General obj compilation rule
-src %.o: src/%.cpp
+src=%.o: src/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o
 # General obj compilation rule
-from-lect %.o: src/from-lecture/%.cpp
+from-lect=%.o: src/from-lecture/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR_LECT)/$*.o
 
 # Primary source compilation
 src_comp: src/*.cpp
-	make -s src $(objs)
-	make -s from-lect $(objs_lecture)
+	make -s src=$(objs)
+	make -s from-lect=$(objs_lecture)
 
 # Program binary executable compilation
 program: src_comp
