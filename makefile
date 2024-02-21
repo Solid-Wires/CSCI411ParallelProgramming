@@ -1,16 +1,24 @@
 # Executable name
 BIN=Parallel
-BIN_LECT=Sample # Lecture program sample
 
 # Directories
 OBJ_DIR=obj
-OBJ_DIR_LECT=obj/from-lecture
+OBJ_DIR_LECT_HELLO=obj/from-lecture/hello
+OBJ_DIR_LECT_NUM_INTEG=obj/from-lecture/num-integ
+OBJ_DIR_LECT_NUM_THREADS-DEF=obj/from-lecture/num-threads-defined
+OBJ_DIR_LECT_PI-PROGRAM=obj/from-lecture/pi-program
+OBJ_DIR_LECT_SYNCHRONIZATION=obj/from-lecture/synchronization
 BIN_DIR=bin
+BIN_LECT_DIR=$(BIN_DIR)/lecture
 
 # All object files to create (derived from all files in /src)
 # Awesome! Now I'll never have to look at this file again when I make new definition files.
 objs := $(patsubst src/%.cpp,%.o,$(wildcard src/*.cpp))
-objs_lecture := $(patsubst src/from-lecture/%.cpp,%.o,$(wildcard src/from-lecture/*.cpp))
+objs_lecture_hellosample := $(patsubst src/from-lecture/hello/%.cpp,%.o,$(wildcard src/from-lecture/hello/*.cpp))
+objs_lecture_numinteg := $(patsubst src/from-lecture/num-integ/%.cpp,%.o,$(wildcard src/from-lecture/num-integ/*.cpp))
+objs_lecture_numthreadsdefined := $(patsubst src/from-lecture/num-threads-defined/%.cpp,%.o,$(wildcard src/from-lecture/num-threads-defined/*.cpp))
+objs_lecture_piprogram := $(patsubst src/from-lecture/pi-program/%.cpp,%.o,$(wildcard src/from-lecture/pi-program/*.cpp))
+objs_lecture_synchronization := $(patsubst src/from-lecture/synchronization/%.cpp,%.o,$(wildcard src/from-lecture/synchronization/*.cpp))
 
 # Linker, version, and misc additions
 CC=cc
@@ -24,25 +32,47 @@ all: directories program
 # Make all of these directories if they don't exist
 directories:
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR_LECT)
+	@mkdir -p $(OBJ_DIR_LECT_HELLO)
+	@mkdir -p $(OBJ_DIR_LECT_NUM_INTEG)
+	@mkdir -p $(OBJ_DIR_LECT_NUM_THREADS)
+	@mkdir -p $(OBJ_DIR_LECT_PI)
+	@mkdir -p $(OBJ_DIR_LECT_SYNCHRONIZATION)
 	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(BIN_LECT_DIR)
 
 # General obj compilation rule
 src-%.o: src/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o
-# General obj compilation rule
-from-lect-%.o: src/from-lecture/%.cpp
-	$(CC) $(VERSION) -c src/from-lecture/$*.cpp -o $(OBJ_DIR_LECT)/$*.o
+# Lecure obj comps
+from-lect-hello-%.o: src/from-lecture/hello/%.cpp
+	$(CC) $(VERSION) -c src/from-lecture/hello/$*.cpp -o $(OBJ_DIR_LECT_HELLO)/$*.o
+from-lect-numinteg-%.o: src/from-lecture/num-integ/%.cpp
+	$(CC) $(VERSION) -c src/from-lecture/num-integ/$*.cpp -o $(OBJ_DIR_LECT_NUM_INTEG)/$*.o
+from-lect-numthreadsdefined-%.o: src/from-lecture/num-threads-defined/%.cpp
+	$(CC) $(VERSION) -c src/from-lecture/num-threads-defined/$*.cpp -o $(OBJ_DIR_LECT_NUM_THREADS)/$*.o
+from-lect-piprogram-%.o: src/from-lecture/pi-program/%.cpp
+	$(CC) $(VERSION) -c src/from-lecture/pi-program/$*.cpp -o $(OBJ_DIR_LECT_PI)/$*.o
+from-lect-synchronization-%.o: src/from-lecture/synchronization/%.cpp
+	$(CC) $(VERSION) -c src/from-lecture/synchronization/$*.cpp -o $(OBJ_DIR_LECT_SYNCHRONIZATION)/$*.o
 
 # Primary source compilation
 src_comp: src/*.cpp
 	make -s src-$(objs)
-	make -s from-lect-$(objs_lecture)
+	make -s from-lect-hello-$(objs_lecture_hellosample)
+	make -s from-lect-numinteg-$(objs_lecture_numinteg)
+	make -s from-lect-numinteg-$(objs_lecture_numinteg)
+	make -s from-lect-numthreadsdefined-$(objs_lecture_numthreadsdefined)
+	make -s from-lect-piprogram-$(objs_lecture_piprogram)
+	make -s from-lect-synchronization-$(objs_lecture_synchronization)
 
 # Program binary executable compilation
 program: src_comp
 	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(RTL) $(LPTHREAD)
-	g++ $(OBJ_DIR_LECT)/*.o -o $(BIN_DIR)/$(BIN_LECT) $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_NUM_THREADS)/*.o -o $(BIN_LECT_DIR)/ntd $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(RTL) $(LPTHREAD)
+	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(RTL) $(LPTHREAD)
 
 # Clean does a recursive removal of the generated bin and obj directories.
 .PHONY: clean
