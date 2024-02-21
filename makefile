@@ -32,7 +32,7 @@ src=%.o: src/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o
 # General obj compilation rule
 from-lect=%.o: src/from-lecture/%.cpp
-	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR_LECT)/$*.o
+	$(CC) $(VERSION) -c src/from-lecture/$*.cpp -o $(OBJ_DIR_LECT)/$*.o
 
 # Primary source compilation
 src_comp: src/*.cpp
