@@ -15,7 +15,7 @@ int main() {
     pi = step * sum;
     run_time = omp_get_wtime() - start_time;
 
-    cout << "pi with " << num_steps << " steps is " << pi << "" in  << run_time << " seconds" << endl;
+    cout << "pi with " << num_steps << " steps is " << pi << " in " << run_time << " seconds" << endl;
 
     return 0;
 }
