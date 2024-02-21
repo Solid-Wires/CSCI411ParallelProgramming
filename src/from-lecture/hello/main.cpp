@@ -5,8 +5,9 @@ int main() {
 
     #pragma omp parallel
     {
-        cout << "Hello";
-        cout << "World" << endl;
+        int id = omp_get_thread_num();
+        cout << "Hello(" << id << ")";
+        cout << "World(" << id << ")" << endl;
     }
 
     return 0;
