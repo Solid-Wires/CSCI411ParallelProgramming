@@ -1,4 +1,5 @@
-#include "../../../inc/Common.h"
+#include <iostream>
+#include <omp.h>
 using namespace std;
 
 void Foo(int, double[1000]);
