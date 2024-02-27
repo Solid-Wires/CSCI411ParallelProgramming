@@ -124,10 +124,9 @@ double TrapParallel(double a, double b, int n, double h) {
         // computational problems.
         #pragma omp critical // Same as a mutex
         {
-            integral += sum;
+            integral += sum*h;
         }
     }
-    integral *= h;
 
     return integral;
 }  /* TrapParallel */
