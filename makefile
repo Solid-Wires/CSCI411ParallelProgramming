@@ -54,9 +54,8 @@ from-lect-piprogram-%.o: src/from-lecture/pi-program/%.cpp
 from-lect-synchronization-%.o: src/from-lecture/synchronization/%.cpp
 	$(CC) $(VERSION) -c src/from-lecture/synchronization/$*.cpp -o $(OBJ_DIR_LECT_SYNCHRONIZATION)/$*.o $(OPENMP)
 
-# Primary source compilation
-src_comp: src/*.cpp
-	make -s src-$(objs)
+# Lecture program objects
+lect_comp: 
 	make -s from-lect-hello-$(objs_lecture_hellosample)
 	make -s from-lect-numinteg-$(objs_lecture_numinteg)
 	make -s from-lect-numinteg-$(objs_lecture_numinteg)
@@ -64,14 +63,21 @@ src_comp: src/*.cpp
 	make -s from-lect-piprogram-$(objs_lecture_piprogram)
 	make -s from-lect-synchronization-$(objs_lecture_synchronization)
 
-# Program binary executable compilation
-program: src_comp
-	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
+# Lecture program executables
+lect_programs: lect_comp
 	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(OPENMP)
 	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(OPENMP)
 	g++ $(OBJ_DIR_LECT_NUM_THREADS_DEF)/*.o -o $(BIN_LECT_DIR)/ntd $(OPENMP)
 	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(OPENMP)
 	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(OPENMP)
+
+# Primary source compilation
+src_comp:
+	make -s src-$(objs)
+
+# Program binary executable compilation
+program: lect_programs src_comp
+	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
 
 # Clean does a recursive removal of the generated bin and obj directories.
 .PHONY: clean
