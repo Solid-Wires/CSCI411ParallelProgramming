@@ -14,11 +14,11 @@ BIN_LECT_DIR=$(BIN_DIR)/lecture
 # All object files to create (derived from all files in /src)
 # Awesome! Now I'll never have to look at this file again when I make new definition files.
 objs := $(patsubst src/%.cpp,src-%.o,$(wildcard src/*.cpp))
-objs_lecture_hellosample := $(patsubst src/from-lecture/hello/%.cpp,%.o,$(wildcard src/from-lecture/hello/*.cpp))
-objs_lecture_numinteg := $(patsubst src/from-lecture/num-integ/%.cpp,%.o,$(wildcard src/from-lecture/num-integ/*.cpp))
-objs_lecture_numthreadsdefined := $(patsubst src/from-lecture/num-threads-defined/%.cpp,%.o,$(wildcard src/from-lecture/num-threads-defined/*.cpp))
-objs_lecture_piprogram := $(patsubst src/from-lecture/pi-program/%.cpp,%.o,$(wildcard src/from-lecture/pi-program/*.cpp))
-objs_lecture_synchronization := $(patsubst src/from-lecture/synchronization/%.cpp,%.o,$(wildcard src/from-lecture/synchronization/*.cpp))
+objs_lecture_hellosample := $(patsubst src/from-lecture/hello/%.cpp,from-lect-hello-%.o,$(wildcard src/from-lecture/hello/*.cpp))
+objs_lecture_numinteg := $(patsubst src/from-lecture/num-integ/%.cpp,from-lect-numinteg-%.o,$(wildcard src/from-lecture/num-integ/*.cpp))
+objs_lecture_numthreadsdefined := $(patsubst src/from-lecture/num-threads-defined/%.cpp,from-lect-numthreadsdefined-%.o,$(wildcard src/from-lecture/num-threads-defined/*.cpp))
+objs_lecture_piprogram := $(patsubst src/from-lecture/pi-program/%.cpp,from-lect-piprogram-%.o,$(wildcard src/from-lecture/pi-program/*.cpp))
+objs_lecture_synchronization := $(patsubst src/from-lecture/synchronization/%.cpp,from-lect-synchronization-%.o,$(wildcard src/from-lecture/synchronization/*.cpp))
 
 # Linker, version, and misc additions
 CC=cc
@@ -56,12 +56,12 @@ from-lect-synchronization-%.o: src/from-lecture/synchronization/%.cpp
 
 # Lecture program objects
 lect_comp: 
-	make -s from-lect-hello-$(objs_lecture_hellosample)
-	make -s from-lect-numinteg-$(objs_lecture_numinteg)
-	make -s from-lect-numinteg-$(objs_lecture_numinteg)
-	make -s from-lect-numthreadsdefined-$(objs_lecture_numthreadsdefined)
-	make -s from-lect-piprogram-$(objs_lecture_piprogram)
-	make -s from-lect-synchronization-$(objs_lecture_synchronization)
+	make -s $(objs_lecture_hellosample)
+	make -s $(objs_lecture_numinteg)
+	make -s $(objs_lecture_numinteg)
+	make -s $(objs_lecture_numthreadsdefined)
+	make -s $(objs_lecture_piprogram)
+	make -s $(objs_lecture_synchronization)
 
 # Lecture program executables
 lect_programs: lect_comp
@@ -76,7 +76,7 @@ src_comp:
 	make -s $(objs)
 
 # Program binary executable compilation
-program: src_comp
+program: lect_programs src_comp
 	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
 
 # Clean does a recursive removal of the generated bin and obj directories.
