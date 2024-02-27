@@ -69,6 +69,7 @@ int main() {
 
     // Parallel optimization
     omp_set_num_threads(thread_count);
+    cout << "Actually using " << omp_get_max_threads << " threads";
     //*************************************************
     // Call integration function
     //*************************************************
