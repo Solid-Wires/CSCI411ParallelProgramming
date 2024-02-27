@@ -19,7 +19,7 @@ using namespace std;
 
 // Function Declarations
 double f(double x);    /* Function we're integrating */
-double Trap(double a, double b, int n, double h);
+double TrapParallel(double a, double b, int n, double h);
 
 // START of main function
 int main() {
