@@ -28,6 +28,7 @@ int main() {
                 sum = sum + 4.0/(1.0+x*x);
             }
 
+            // Mutex: only one thread at a time can modify pi
             #pragma omp critical
             {
                 pi += sum *step;
