@@ -95,7 +95,7 @@ double TrapParallel(double a, double b, int n, double h) {
         int numthreads = omp_get_num_threads();
 
         // Parallel iteration
-        for (int i = tid; tid < n; tid += numthreads) {
+        for (int i = tid + 1; tid < n - 1; tid += numthreads) {
             integral += f(a+i*h);
         }
     }
