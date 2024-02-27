@@ -96,15 +96,26 @@ double TrapParallel(double a, double b, int n, double h) {
     double integral;
 
     integral = (f(a) + f(b))/2.0;
-    # pragma omp parallel
+    #pragma omp parallel
     {
+        // Each thread is keeping track of a sum
+        double sum;
+
         // Thread information
         int tid = omp_get_thread_num();
         int numthreads = omp_get_num_threads();
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            integral += f(a+i*h);
+            sum += f(a+i*h);
+        }
+
+        // At the end of summations, add sum into the integral.
+        // The threads shouldn't do this all at once, otherwise there will be
+        // computational problems.
+        #pragma omp critical // Same as a mutex
+        {
+            integral += sum;
         }
     }
     integral = integral*h;
