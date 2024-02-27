@@ -1,4 +1,4 @@
-#include "../inc/Common.h"
+#include "../../inc/Common.h"
 using namespace std;
 /* File:    Trap.cpp
  * Purpose: Calculate definite integral using trapezoidal 
