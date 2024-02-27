@@ -11,6 +11,14 @@ Simply run make to create the executable. You should see bin and obj directories
 bin/trap runs the program.
 All of the lecture programs are located and ran at bin/lectures/.
 
+The program walks you through the inputs that it needs.
+
 # Analysis
 
-TBD
+With input of endpoints 2 to 10 of 1,000,000 trapezoids, these are the timings of the output of 330.667:
+
+Timing (s)      Num of threads
+0.024424        4
+0.0160349       8
+0.0144189       16
+0.0120077       32
