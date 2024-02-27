@@ -69,7 +69,12 @@ int main() {
 
     // Parallel optimization
     omp_set_num_threads(thread_count);
-    cout << "Actually using " << omp_get_max_threads << " threads";
+    // Are we actually getting that many threads? This will tell you.
+    int actualThreads = omp_get_max_threads();
+    if (actualThreads < thread_count) {
+        cout << "Actually using " << actualThreads << " threads (got capped by processors)" << endl;
+    }
+    
     //*************************************************
     // Call integration function
     //*************************************************
