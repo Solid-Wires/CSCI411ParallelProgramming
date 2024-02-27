@@ -40,7 +40,7 @@ directories:
 	@mkdir -p $(BIN_LECT_DIR)
 
 # General obj compilation rule
-src-: %.o
+src-objs: %.o
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o $(OPENMP)
 # Lecure obj comps
 from-lect-hello-%.o: src/from-lecture/hello/%.cpp
@@ -73,7 +73,7 @@ lect_programs: lect_comp
 
 # Primary source compilation
 src_comp:
-	make -s src-$(objs)
+	make -s src-objs $(objs)
 
 # Program binary executable compilation
 program: src_comp
