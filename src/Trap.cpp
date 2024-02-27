@@ -72,9 +72,9 @@ int main() {
     // Are we actually getting that many threads? This will tell you.
     int actualThreads = omp_get_max_threads();
     if (actualThreads < thread_count) {
-        cout << "Actually using " << actualThreads << " threads (got capped by processors)" << endl;
+        cout << "Actually using " << actualThreads << " threads (got capped)" << endl;
     }
-    
+
     //*************************************************
     // Call integration function
     //*************************************************
@@ -100,12 +100,13 @@ int main() {
  */
 double TrapParallel(double a, double b, int n, double h) {
     double integral;
+    double step = 1.0/(double) n; // Used for numerical integration
 
     integral = (f(a) + f(b))/2.0;
     #pragma omp parallel
     {
         // Each thread is keeping track of a sum
-        double sum;
+        double x, sum;
 
         // Thread information
         int tid = omp_get_thread_num();
@@ -113,7 +114,8 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            sum += f(a+i*h);
+            x = f(a+i*h) * step;
+            sum = sum + 4.0/(1.0 + x*x);
         }
 
         // At the end of summations, add sum into the integral.
@@ -121,7 +123,7 @@ double TrapParallel(double a, double b, int n, double h) {
         // computational problems.
         #pragma omp critical // Same as a mutex
         {
-            integral += sum;
+            integral += sum * step;
         }
     }
     integral = integral*h;
