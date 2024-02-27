@@ -9,6 +9,7 @@ using namespace std;
 
 // Solution: pad array elements by a fixed value to adjust cache lines. You'll need to
 // initialize the array by PAD and then always access the first element.
+// Now the thread performance scaling makes sense!
 
 static long num_steps = 1000000000;
 static double step;
