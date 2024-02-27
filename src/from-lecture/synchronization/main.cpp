@@ -4,7 +4,7 @@ using namespace std;
 
 static long num_steps = 100000000;
 int main() {
-    int i,j;
+    int i, j;
     double pi, full_sum = 0.0;
     double start_time, run_time;
     double step = 1.0/(double) num_steps;
@@ -18,7 +18,7 @@ int main() {
         #pragma omp parallel
         {
             int i;
-            double x,sum;
+            double x, sum;
             int id = omp_get_thread_num();
             int numthreads = omp_get_num_threads();
 
