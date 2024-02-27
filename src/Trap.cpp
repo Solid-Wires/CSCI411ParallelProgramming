@@ -1,4 +1,5 @@
 #include "../inc/Common.h"
+#define PAD 8 // Assume 64 byte L1 cache line size
 using namespace std;
 /* File:    Trap.cpp
  * Purpose: Calculate definite integral using trapezoidal 
@@ -94,37 +95,41 @@ int main() {
 /*------------------------------------------------------------------
  * Function:    TrapParallel
  * Purpose:     Estimate integral from a to b of f using trap rule and
- *              n trapezoids
+ *              n trapezoids with parallel threads
  * Input args:  a, b, n, h
  * Return val:  Estimate of the integral 
  */
 double TrapParallel(double a, double b, int n, double h) {
-    double integral;
+    double integral = (f(a) + f(b))/2.0;
 
-    integral = (f(a) + f(b))/2.0;
+    // Each thread is keeping track of a sum
+    double sum[omp_get_max_threads()][PAD];
+
+    // Parallel region
     #pragma omp parallel
     {
-        // Each thread is keeping track of a sum
-        double sum;
-
         // Thread information
         int tid = omp_get_thread_num();
         int numthreads = omp_get_num_threads();
 
-        // Parallel iteration
+        // Parallel iteration (basically the same as what was there before)
         for (int k = tid + 1; k <= n - 1; k += numthreads) {
             double x = a+k*h;
-            sum += f(x);
+            sum[tid][0] += f(x);
         }
 
         // At the end of summations, add sum into the integral and multiply by h.
         // The threads shouldn't do this all at once, otherwise there will be
         // computational problems.
-        #pragma omp critical // Same as a mutex
-        {
-            integral += sum;
-        }
+        // #pragma omp critical // Same as a mutex
+        // {
+        //     integral += sum;
+        // }
+    } // End of parallel region
+    for (int tid = 0; tid < omp_get_max_threads(); tid++) {
+        integral += sum[tid][0];
     }
+
     integral *= h;
 
     return integral;
