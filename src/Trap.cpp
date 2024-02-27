@@ -65,6 +65,9 @@ int main() {
 
     // Parallel optimization
     omp_set_num_threads(thread_count);
+    //*************************************************
+    // Call integration function
+    //*************************************************
     integral = TrapParallel(a, b, n, h);
 
     // Results
