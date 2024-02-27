@@ -107,7 +107,7 @@ double TrapParallel(double a, double b, int n, double h) {
     {
         // Each thread is keeping track of a sum
         double x;
-        double sum = integral;
+        double sum;
 
         // Thread information
         int tid = omp_get_thread_num();
@@ -124,9 +124,10 @@ double TrapParallel(double a, double b, int n, double h) {
         // computational problems.
         #pragma omp critical // Same as a mutex
         {
-            integral += sum*h;
+            integral += sum;
         }
     }
+    integral *= h;
 
     return integral;
 }  /* TrapParallel */
