@@ -25,9 +25,11 @@ int main() {
             double x;
             sum[id] = 0.0;
 
+            // Print only if the first thread ran
             if (id == 0) 
-            cout << " num_threads = " << numthreads << endl;
+                cout << " num_threads = " << numthreads << endl;
 
+            // Calculation towards pi
             for (i=id; i< num_steps;  i+=numthreads){
                 x = (i+0.5)*step;
                 sum[id] = sum[id] + 4.0/(1.0+x*x);
