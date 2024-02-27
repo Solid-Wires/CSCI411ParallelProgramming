@@ -6,13 +6,12 @@ void Foo(int, double[1000]);
 int main() {
     double A[1000];
     
-    cout << "max threads: " << omp_get_max_threads() << endl;
     omp_set_num_threads(4);
-    cout << "max threads: " << omp_get_max_threads() << endl;
     #pragma omp parallel
     {
         int id = omp_get_thread_num();
         Foo(id, A);
+        cout << "threads = " << omp_get_num_threads() << endl;
     }
     cout << "All done" << endl;
 }
