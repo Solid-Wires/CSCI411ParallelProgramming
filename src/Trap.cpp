@@ -96,7 +96,7 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; tid <= n - 1; tid += numthreads) {
-            cout << i;
+            cout << i << endl;
             integral += f(a+i*h);
         }
     }
