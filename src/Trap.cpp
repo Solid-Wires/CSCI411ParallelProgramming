@@ -28,6 +28,7 @@ int main() {
    int     n;                    /* Total number of trapezoids    */
    double  h;                    /* Width of trapezoids       */
    int     thread_count;    // How many threads to run in parallel to help with computations
+   double start_time, run_time;
    
    //*************************************************
    // Establish paramaters for the integral function
@@ -60,6 +61,9 @@ int main() {
             return EXIT_FAILURE;
     }
 
+    // Timing start
+    start_time = omp_get_wtime();
+
     // Calculate Width of the trapezoid
     h = (b-a)/n;
 
@@ -70,9 +74,13 @@ int main() {
     //*************************************************
     integral = TrapParallel(a, b, n, h);
 
+    // Timing end
+    run_time = omp_get_wtime() - start_time;
+
     // Results
     cout << "With n = " << n << " trapezoids, our estimate of the integral from points "  
             << a << " to " << b << " is " << integral  << endl;
+    cout << "It took " << run_time << " seconds with " << thread_count << " threads" << endl;
     
     return EXIT_SUCCESS;
 }  /* main */
@@ -98,8 +106,8 @@ double TrapParallel(double a, double b, int n, double h) {
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
             #pragma omp critical
             {
-                // This is a critical section because something's going wrong
-                // with the calculations here
+                // This is a mutex because this goes wrong when all threads increment
+                // this at the same time for some reason
                 integral += f(a+i*h);
             }
         }
