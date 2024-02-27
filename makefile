@@ -44,7 +44,7 @@ src-%.o: src/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o $(OPENMP)
 # Lecure obj comps
 from-lect-hello-%.o: src/from-lecture/hello/%.cpp
-	$(CC) $(VERSION) -c src/from-lecture/hello/$*.cpp -o $(OBJ_DIR_LECT_HELLO)/$*.o
+	$(CC) $(VERSION) -c src/from-lecture/hello/$*.cpp -o $(OBJ_DIR_LECT_HELLO)/$*.o $(OPENMP)
 from-lect-numinteg-%.o: src/from-lecture/num-integ/%.cpp
 	$(CC) $(VERSION) -c src/from-lecture/num-integ/$*.cpp -o $(OBJ_DIR_LECT_NUM_INTEG)/$*.o $(OPENMP)
 from-lect-numthreadsdefined-%.o: src/from-lecture/num-threads-defined/%.cpp
