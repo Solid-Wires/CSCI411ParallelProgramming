@@ -100,7 +100,7 @@ int main() {
  */
 double TrapParallel(double a, double b, int n, double h) {
     double integral;
-    double step = 1.0/(double) n; // Used for numerical integration
+    // h is the steps
 
     integral = (f(a) + f(b))/2.0;
     #pragma omp parallel
@@ -114,19 +114,18 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            x = a+i*h;
+            x = (i+a)*h;
             sum += f(x);
         }
 
-        // At the end of summations, add sum into the integral.
+        // At the end of summations, add sum into the integral and multiply by h.
         // The threads shouldn't do this all at once, otherwise there will be
         // computational problems.
         #pragma omp critical // Same as a mutex
         {
-            integral += sum;
+            integral += sum*h;
         }
     }
-    integral = integral*h;
 
     return integral;
 }  /* TrapParallel */
