@@ -9,7 +9,7 @@ int main() {
     double start_time, run_time;
     double step = 1.0/(double) num_steps;
 
-    for (j=1;j<=MAX_THREADS ;j++)   // loop for thread count of 1, 2,3,4
+    for (j=1; j<=MAX_THREADS; j++)   // loop for thread count of 1, 2,3,4
     {  
         omp_set_num_threads(j);
         start_time = omp_get_wtime();
@@ -22,7 +22,7 @@ int main() {
             int id = omp_get_thread_num();
             int numthreads = omp_get_num_threads();
 
-            for (i=id,sum  = 0.0;i< num_steps; i+=numthreads)
+            for (i = id, sum = 0.0; i< num_steps; i += numthreads)
             {
                 x = (i+0.5)*step;
                 sum = sum + 4.0/(1.0+x*x);

@@ -39,14 +39,14 @@ int main() {
                 cout << " num_threads = " << numthreads << endl;
 
             // Calculation towards pi
-            for (i=id; i< num_steps;  i+=numthreads){
+            for (i = id; i < num_steps;  i += numthreads){
                 x = (i+0.5)*step;
                 sum[id][0] = sum[id][0] + 4.0/(1.0+x*x);
             }
         }     //End parallel region
 
-        for(full_sum = 0.0, i=0;i<j;i++)
-        full_sum += sum[i][0];
+        for(full_sum = 0.0, i = 0; i < j; i++)
+            full_sum += sum[i][0];
 
         pi = step * full_sum;
         run_time = omp_get_wtime() - start_time;
