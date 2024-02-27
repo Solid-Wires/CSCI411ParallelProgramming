@@ -93,9 +93,11 @@ double TrapParallel(double a, double b, int n, double h) {
         // Thread information
         int tid = omp_get_thread_num();
         int numthreads = omp_get_num_threads();
+        cout << "I am thread " << tid << endl;
+        cout << "There are " << numthreads << " that exist" << endl;
 
         // Parallel iteration
-        for (int i = tid + 1; tid < n - 1; tid += numthreads) {
+        for (int i = tid + 1; tid <= n - 1; tid += numthreads) {
             integral += f(a+i*h);
         }
     }
