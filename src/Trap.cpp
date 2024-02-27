@@ -114,7 +114,7 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            x = (i+a)*h;
+            x = a+i*h;
             sum += f(x);
         }
 
