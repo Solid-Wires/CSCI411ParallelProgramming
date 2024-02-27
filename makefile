@@ -13,7 +13,7 @@ BIN_LECT_DIR=$(BIN_DIR)/lecture
 
 # All object files to create (derived from all files in /src)
 # Awesome! Now I'll never have to look at this file again when I make new definition files.
-objs := $(patsubst src/%.cpp,%.o,$(wildcard src/*.cpp))
+objs := $(patsubst src/%.cpp,src-%.o,$(wildcard src/*.cpp))
 objs_lecture_hellosample := $(patsubst src/from-lecture/hello/%.cpp,%.o,$(wildcard src/from-lecture/hello/*.cpp))
 objs_lecture_numinteg := $(patsubst src/from-lecture/num-integ/%.cpp,%.o,$(wildcard src/from-lecture/num-integ/*.cpp))
 objs_lecture_numthreadsdefined := $(patsubst src/from-lecture/num-threads-defined/%.cpp,%.o,$(wildcard src/from-lecture/num-threads-defined/*.cpp))
@@ -40,7 +40,7 @@ directories:
 	@mkdir -p $(BIN_LECT_DIR)
 
 # General obj compilation rule
-src-objs: %.o
+src-%.o: src/%.cpp
 	$(CC) $(VERSION) -c src/$*.cpp -o $(OBJ_DIR)/$*.o $(OPENMP)
 # Lecure obj comps
 from-lect-hello-%.o: src/from-lecture/hello/%.cpp
@@ -73,7 +73,7 @@ lect_programs: lect_comp
 
 # Primary source compilation
 src_comp:
-	make -s src-objs $(objs)
+	make -s $(objs)
 
 # Program binary executable compilation
 program: src_comp
