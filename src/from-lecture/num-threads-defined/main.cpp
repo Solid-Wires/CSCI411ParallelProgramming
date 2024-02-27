@@ -6,6 +6,8 @@ void Foo(int, double[1000]);
 int main() {
     double A[1000];
     
+    // Make sure -fopenmp is compiled with ALL objects!
+    //  Or this will never work!
     omp_set_num_threads(4);
     #pragma omp parallel
     {
