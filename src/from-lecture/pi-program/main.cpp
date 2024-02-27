@@ -1,5 +1,5 @@
 #include "../../../inc/Common.h"
-#define MAX_THREADS = 4
+#define MAX_THREADS 4
 using namespace std;
 
 static long num_steps = 1000000000;
