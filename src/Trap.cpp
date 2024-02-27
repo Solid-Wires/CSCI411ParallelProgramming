@@ -100,13 +100,11 @@ int main() {
  */
 double TrapParallel(double a, double b, int n, double h) {
     double integral;
-    // h is the steps
 
     integral = (f(a) + f(b))/2.0;
     #pragma omp parallel
     {
         // Each thread is keeping track of a sum
-        double x;
         double sum;
 
         // Thread information
@@ -114,8 +112,8 @@ double TrapParallel(double a, double b, int n, double h) {
         int numthreads = omp_get_num_threads();
 
         // Parallel iteration
-        for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            x = a+(i*h);
+        for (int k = tid + 1; k <= n - 1; k += numthreads) {
+            double x = a+k*h;
             sum += f(x);
         }
 
@@ -138,8 +136,5 @@ double TrapParallel(double a, double b, int n, double h) {
  * Input args:  x
  */
 double f(double x) {
-   double return_val;
-
-   return_val = x*x;
-   return return_val;
+   return x*x;
 }  /* f */
