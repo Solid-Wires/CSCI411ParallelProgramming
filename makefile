@@ -76,7 +76,7 @@ src_comp:
 	make -s $(objs)
 
 # Program binary executable compilation
-program: lect_programs src_comp
+program: src_comp
 	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
 
 # Clean does a recursive removal of the generated bin and obj directories.
