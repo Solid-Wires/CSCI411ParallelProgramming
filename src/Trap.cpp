@@ -102,7 +102,7 @@ double TrapParallel(double a, double b, int n, double h) {
     integral = integral*h;
 
     return integral;
-}  /* Trap */
+}  /* TrapParallel */
 
 /*------------------------------------------------------------------
  * Function:    f
