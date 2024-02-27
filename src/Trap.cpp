@@ -114,7 +114,8 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            sum += f(a+i*h);
+            x = a+i*h;
+            sum += f(x);
         }
 
         // At the end of summations, add sum into the integral.
@@ -122,7 +123,7 @@ double TrapParallel(double a, double b, int n, double h) {
         // computational problems.
         #pragma omp critical // Same as a mutex
         {
-            integral += sum * step;
+            integral += sum;
         }
     }
     integral = integral*h;
