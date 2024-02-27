@@ -96,10 +96,6 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            #pragma omp critical
-            {
-                cout << tid << " iterating " << i << endl;
-            }
             integral += f(a+i*h);
         }
     }
