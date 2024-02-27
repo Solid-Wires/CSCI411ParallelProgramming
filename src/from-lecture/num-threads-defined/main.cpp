@@ -11,7 +11,6 @@ int main() {
     {
         int id = omp_get_thread_num();
         Foo(id, A);
-        cout << "threads = " << omp_get_num_threads() << endl;
     }
     cout << "All done" << endl;
 }
