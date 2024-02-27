@@ -68,7 +68,7 @@ src_comp: src/*.cpp
 program: src_comp
 	g++ $(OBJ_DIR)/*.o -o $(BIN_DIR)/$(BIN) $(OPENMP)
 	g++ $(OBJ_DIR_LECT_HELLO)/*.o -o $(BIN_LECT_DIR)/hello $(OPENMP)
-	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o -o $(BIN_LECT_DIR)/numinteg $(OPENMP)
+	g++ $(OBJ_DIR_LECT_NUM_INTEG)/*.o $(OPENMP) -o $(BIN_LECT_DIR)/numinteg 
 	g++ $(OBJ_DIR_LECT_NUM_THREADS_DEF)/*.o -o $(BIN_LECT_DIR)/ntd $(OPENMP)
 	g++ $(OBJ_DIR_LECT_PI)/*.o -o $(BIN_LECT_DIR)/parapi $(OPENMP)
 	g++ $(OBJ_DIR_LECT_SYNCHRONIZATION)/*.o -o $(BIN_LECT_DIR)/synchro $(OPENMP)
