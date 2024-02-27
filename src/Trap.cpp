@@ -27,7 +27,7 @@ int main() {
    double  a, b;                 /* Left and right endpoints      */
    int     n;                    /* Total number of trapezoids    */
    double  h;                    /* Width of trapezoids       */
-   int     thread_count;
+   int     thread_count;    // How many threads to run in parallel to help with computations
    
    //*************************************************
    // Establish paramaters for the integral function
@@ -59,14 +59,15 @@ int main() {
             << "   and a number greater than zero \n";
             return EXIT_FAILURE;
     }
+
     // Calculate Width of the trapezoid
     h = (b-a)/n;
-   
-    //*************************************************
-    // Call integration function
-    //*************************************************
-    integral = Trap(a, b, n, h);
-    
+
+    // Parallel optimization
+    omp_set_num_threads(thread_count);
+    integral = TrapParallel(a, b, n, h);
+
+    // Results
     cout << "With n = " << n << " trapezoids, our estimate of the integral from points "  
             << a << " to " << b << " is " << integral  << endl;
     
@@ -74,23 +75,30 @@ int main() {
 }  /* main */
 
 /*------------------------------------------------------------------
- * Function:    Trap
+ * Function:    TrapParallel
  * Purpose:     Estimate integral from a to b of f using trap rule and
  *              n trapezoids
  * Input args:  a, b, n, h
  * Return val:  Estimate of the integral 
  */
-double Trap(double a, double b, int n, double h) {
-   double integral;
-   int k;
+double TrapParallel(double a, double b, int n, double h) {
+    double integral;
 
-   integral = (f(a) + f(b))/2.0;
-   for (k = 1; k <= n-1; k++) {
-     integral += f(a+k*h);
-   }
-   integral = integral*h;
+    integral = (f(a) + f(b))/2.0;
+    # pragma omp parallel
+    {
+        // Thread information
+        int tid = omp_get_thread_num();
+        int numthreads = omp_get_num_threads();
 
-   return integral;
+        // Parallel iteration
+        for (int i = tid; tid < n; tid += numthreads) {
+            integral += f(a+i*h);
+        }
+    }
+    integral = integral*h;
+
+    return integral;
 }  /* Trap */
 
 /*------------------------------------------------------------------
