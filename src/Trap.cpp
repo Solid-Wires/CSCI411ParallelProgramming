@@ -106,7 +106,8 @@ double TrapParallel(double a, double b, int n, double h) {
     #pragma omp parallel
     {
         // Each thread is keeping track of a sum
-        double x, sum;
+        double x;
+        double sum = integral;
 
         // Thread information
         int tid = omp_get_thread_num();
