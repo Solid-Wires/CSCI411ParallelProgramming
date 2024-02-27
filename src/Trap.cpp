@@ -114,7 +114,7 @@ double TrapParallel(double a, double b, int n, double h) {
 
         // Parallel iteration
         for (int i = tid + 1; i <= n - 1; i += numthreads) {
-            sum = sum + 4.0/(1.0 + f(a+(i*h)*step));
+            sum = sum + 4.0/(1.0 + f(a+(i*h)));
         }
 
         // At the end of summations, add sum into the integral.
