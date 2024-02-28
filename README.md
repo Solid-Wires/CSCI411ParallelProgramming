@@ -25,4 +25,4 @@ With input of endpoints 2 to 10 of 1,000,000 trapezoids, these are the timings o
 | 0.0120077    |       32         |
 
 It looks like it was already pretty fast with just 4 threads, but adding more seemed to increase
-the speed of computations by a certain scale.
+the speed of computations by a certain scale. I had to run it quite a few times to get consistent results.
